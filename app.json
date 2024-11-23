@@ -14,6 +14,7 @@
     "AUTO_READ_STATUS": {
       "description": "To Enable Auto Read Status"
       "required": false
+      "value": "true",
     },
 
     "ALIVE_IMG": {
