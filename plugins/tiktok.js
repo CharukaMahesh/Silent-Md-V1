@@ -20,14 +20,16 @@ async (conn, mek, m, { from, quoted, q, reply }) => {
 
         // Fetch TikTok video details
         const data = await fg.tiktok(q);
+        console.log("TikTok Data:", data); // Debugging: Check API response
+
         if (!data || !data.video || !data.video.url) {
-            return reply("No results found for the given TikTok URL.");
+            return reply("No results found or invalid TikTok URL.");
         }
 
         let desc = `
 🎬 *TikTok Video Found!*
 
-*Author* ✨: ${data.author}
+*Author* ✨: ${data.author || "Unknown"}
 *Description* 📝: ${data.description || "No description available."}
 *Duration* ⏰: ${data.duration || "Unknown"}
 *Views* 📊: ${data.stats?.playCount || "Unknown"}
@@ -60,7 +62,7 @@ Click "Download" below to save this video.
         reply("*`TikTok video uploaded successfully! ✅`*");
 
     } catch (e) {
-        console.error("Error:", e);
+        console.error("Error:", e); // Debugging: Log error details
         reply("An error occurred while processing your TikTok video. Please try again later.");
     }
 });
