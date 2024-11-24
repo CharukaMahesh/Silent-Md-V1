@@ -69,12 +69,16 @@ require("./plugins/" + plugin);
 console.log('Plugins installed successful ✅')
 console.log('Bot connected to whatsapp ✅')
 
-let up = `
-┌─❖
- 🌏 *ꜱɪʟᴇɴᴛ ᴍᴅ ɪꜱ ᴏɴʟɪɴᴇ* 🌏
+let up = `┌─❖
+ 
+    *ꜱɪʟᴇɴᴛ ᴍᴅ ɪꜱ ᴏɴʟɪɴᴇ*
 
-*│© *ꜱɪʟᴇɴᴛ-ʙᴏᴛ-ᴍᴅ-2024*
-└─────────────────┈*`;
+ 🎲 *𝙶𝙸𝚃𝙷𝚄𝙱 𝚁𝙴𝙿𝙾 = https://github.com/CharukaMahesh?/Silent-Md-V1*
+
+  *𝙿𝙾𝚆𝙴𝚁𝙴𝙳 𝙱𝚈 𝙲𝙷𝙰𝚁𝚄𝙺𝙰  𝙼𝙰𝙷𝙴𝚂𝙷*
+
+│© *ꜱɪʟᴇɴᴛ-ʙᴏᴛ-ᴍᴅ-2024*
+└*─────────────────*`;
 
 conn.sendMessage(ownerNumber + "@s.whatsapp.net", { image: { url: `https://raw.githubusercontent.com/CharukaMahesh/Silent-Md-V1/refs/heads/main/img/20241123_074804.jpg` }, caption: up })
 
