@@ -23,6 +23,8 @@
     "api-dylux": "^1.8.5",
     "yt-search": "^2.12.1",
     "nayan-media-downloader": "^2.4.8",
+    "wa-sticker-formatter": "^4.4.4",
+    "canvacord": "^6.0.2",
     "megajs": "^1.1.0",
     "vm": "^0.1.0",
     "qrcode-terminal": "^0.12.0"
