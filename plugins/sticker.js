@@ -1,6 +1,6 @@
 const { cmd } = require('../command');
-const { Sticker, createSticker, StickerTypes } = require('wa-sticker-formatter');
-const canvacord = require('canvacord');
+const { Sticker } = require('wa-sticker-formatter');
+const Jimp = require('jimp');
 
 // 🎨--------TEXT-TO-STICKER (TTP)-------//
 
@@ -19,21 +19,20 @@ async (conn, mek, m, { from, quoted, q, reply }) => {
         await conn.sendMessage(from, { react: { text: "🖌️", key: mek.key } });
         reply("*`Generating your sticker... 🖌️`*");
 
-        // Generate the image with text using Canvacord
-        const canvas = await canvacord.Canvacord.text(q, {
-            color: "#FFFFFF", // Text color
-            background: "#1E1E1E", // Background color
-            padding: 20, // Padding around text
-            fontSize: 70, // Font size
-            width: 512, // Image width
-            height: 512 // Image height
-        });
+        // Create image with text using Jimp
+        const image = new Jimp(512, 512, '#1E1E1E'); // Create a blank image with a dark background
+        const font = await Jimp.loadFont(Jimp.FONT_SANS_32_WHITE); // Load font
+        image.print(font, 10, 10, { text: q, alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER, alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE }, 492, 492);
 
-        // Create a sticker from the generated image
-        const stickerBuffer = await createSticker(canvas, {
-            type: StickerTypes.DEFAULT,
+        // Save the generated image to a buffer
+        const imageBuffer = await image.getBufferAsync(Jimp.MIME_PNG);
+
+        // Create sticker from the generated image
+        const sticker = new Sticker(imageBuffer, {
             pack: "ꜱɪʟᴇɴᴛ ᴍᴅ", // Sticker pack name
-            author: "Text Sticker Generator" // Author name
+            author: "Text Sticker Generator", // Author name
+            type: "full", // Sticker type
+            categories: ["🤖"], // Optional categories
         });
 
         // React with 📤 and show uploading text
@@ -41,6 +40,7 @@ async (conn, mek, m, { from, quoted, q, reply }) => {
         reply("*`Uploading your sticker... 📤`*");
 
         // Send the sticker
+        const stickerBuffer = await sticker.toBuffer();
         await conn.sendMessage(from, { sticker: stickerBuffer }, { quoted: mek });
 
         // React with ✅ when upload is complete
