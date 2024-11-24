@@ -10,12 +10,6 @@
       "description": "Put the session-id here.",
       "required": true
     },  
-    
-    "AUTO_READ_STATUS": {
-      "description": "To Enable Auto Read Status"
-      "required": false
-      "value": "true",
-    },
 
     "ALIVE_IMG": {
       "description": "Put your alive img here.",
