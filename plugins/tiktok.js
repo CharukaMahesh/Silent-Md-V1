@@ -20,24 +20,9 @@ async (conn, mek, m, { from, quoted, q, reply }) => {
 
         // Fetch TikTok video details
         const data = await fg.tiktok(q);
-        console.log("TikTok Data:", data); // Debugging: Check API response
-
         if (!data || !data.video || !data.video.url) {
             return reply("No results found or invalid TikTok URL.");
         }
-
-        let desc = `
-🎬 *TikTok Video Found!*
-
-*Author* ✨: ${data.author || "Unknown"}
-*Description* 📝: ${data.description || "No description available."}
-*Duration* ⏰: ${data.duration || "Unknown"}
-*Views* 📊: ${data.stats?.playCount || "Unknown"}
-
-Click "Download" below to save this video.
-`;
-
-        await conn.sendMessage(from, { image: { url: data.video.cover }, caption: desc }, { quoted: mek });
 
         // React with 📥 and show downloading text
         await conn.sendMessage(from, { react: { text: "📥", key: mek.key } });
@@ -54,7 +39,7 @@ Click "Download" below to save this video.
         await conn.sendMessage(from, {
             video: { url: videoUrl },
             mimetype: "video/mp4",
-            caption: `🎬 TikTok Video - Enjoy!`
+            caption: `🎬 TikTok Video`
         }, { quoted: mek });
 
         // React with ✅ when upload is complete
