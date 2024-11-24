@@ -1,5 +1,5 @@
 const { cmd } = require('../command');
-const tiktokScraper = require('@xct007/tiktok-scraper');
+const fg = require('nayan-media-downloader');
 
 // 🎥--------TIKTOK-DOWNLOAD-------//
 
@@ -19,8 +19,8 @@ async (conn, mek, m, { from, quoted, q, reply }) => {
         reply("*`Searching for your TikTok video... 🎥`*");
 
         // Fetch TikTok video details
-        const data = await tiktokScraper.getVideoMeta(q);
-        if (!data || !data.videoUrl) {
+        const data = await fg.tiktok(q);
+        if (!data || !data.video || !data.video.url) {
             return reply("No results found or invalid TikTok URL.");
         }
 
@@ -28,8 +28,8 @@ async (conn, mek, m, { from, quoted, q, reply }) => {
         await conn.sendMessage(from, { react: { text: "📥", key: mek.key } });
         reply("*`Downloading your TikTok video... 📥`*");
 
-        // Video URL
-        const videoUrl = data.videoUrl;
+        // Download Video
+        const videoUrl = data.video.url;
 
         // React with 📤 and show uploading text
         await conn.sendMessage(from, { react: { text: "📤", key: mek.key } });
