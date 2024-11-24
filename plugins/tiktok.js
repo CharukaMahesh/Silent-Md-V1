@@ -1,5 +1,5 @@
 const { cmd } = require('../command');
-const fg = require('nayan-media-downloader');
+const fg = require('api-dylux');
 
 // 🎥--------TIKTOK-DOWNLOAD-------//
 
@@ -20,7 +20,7 @@ async (conn, mek, m, { from, quoted, q, reply }) => {
 
         // Fetch TikTok video details
         const data = await fg.tiktok(q);
-        if (!data || !data.video || !data.video.url) {
+        if (!data || !data.video || !data.video.nowatermark) {
             return reply("No results found or invalid TikTok URL.");
         }
 
@@ -29,7 +29,7 @@ async (conn, mek, m, { from, quoted, q, reply }) => {
         reply("*`Downloading your TikTok video... 📥`*");
 
         // Download Video
-        const videoUrl = data.video.url;
+        const videoUrl = data.video.nowatermark;
 
         // React with 📤 and show uploading text
         await conn.sendMessage(from, { react: { text: "📤", key: mek.key } });
